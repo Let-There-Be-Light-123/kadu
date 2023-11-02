@@ -5,13 +5,15 @@ class Popup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.grey,
-      body: Center(
-          child: Text(
-        'Error',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
-      )),
-    );
+    return Scaffold(
+        backgroundColor: Color.fromARGB(250, 250, 250, 250),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset('assets/No_internet.png'),
+            ],
+          ),
+        ));
   }
 }
