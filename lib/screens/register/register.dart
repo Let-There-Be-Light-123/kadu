@@ -1,145 +1,137 @@
 import 'package:flutter/material.dart';
 import 'package:kadu_ngo/screens/login/login-page.dart';
 import 'package:kadu_ngo/screens/welcome/welcome.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kadu_ngo/theme/color.dart';
+import 'package:kadu_ngo/widgets/custom_radio/custom_radio.dart';
+import 'package:kadu_ngo/widgets/input_text/input_text.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  List<bool> selections = [false, true];
+  String selectLivingCondition = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppColors.backgroundColorDefault,
       appBar: AppBar(
         elevation: 0,
-        // brightness: Brightness.light,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Welcome()),
-            );
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: Colors.black,
-          ),
-        ),
+        backgroundColor: AppColors.backgroundColorDefault,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Expanded(
+                child: Column(children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text(
-                    "Sign up",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                  Positioned(
+                    top: 10,
+                    child: Text(
+                      "Register",
+                      style: GoogleFonts.poppins(
+                        fontSize: 40,
+                        color: AppColors.textColorPrimary,
+                      ),
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Text(
-                    "Create an account, It's free ",
-                    style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                  )
+                    "By Signing in you are agreeing to our",
+                    style:
+                        GoogleFonts.poppins(fontSize: 15, color: Colors.grey),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // redirect to terms and Conditions
+                    },
+                    child: Text(
+                      'Terms and Privacy Policay',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                          color: AppColors.textColorPrimary),
+                    ),
+                  ),
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  inputFile(label: "Username"),
-                  inputFile(label: "Email"),
-                  inputFile(label: "Password", obscureText: true),
-                  inputFile(label: "Confirm Password ", obscureText: true),
-                ],
+              SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  children: <Widget>[
+                    textFieldInput(
+                        label: "Social Security Number", obscureText: false),
+                    LivingStateSelector(),
+                    textFieldInput(label: "Email", obscureText: false),
+                    textFieldInput(label: 'Phone', obscureText: false),
+                    textFieldInput(label: "Password", obscureText: true),
+                    textFieldInput(
+                        label: "Confirm Password", obscureText: true),
+                  ],
+                ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 3, left: 3),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black),
-                      top: BorderSide(color: Colors.black),
-                      left: BorderSide(color: Colors.black),
-                      right: BorderSide(color: Colors.black),
-                    )),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  height: 60,
-                  onPressed: () {},
-                  color: Color(0xff0095FF),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Text(
-                    "Sign up",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                      color: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                          onPressed: () {},
+                          child: Text('Remember Password',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 15, color: Colors.grey))),
+                    ],
+                  )),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Container(
+                  width: 320,
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    height: 45,
+                    onPressed: () {},
+                    color: AppColors.primaryColorOrange,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Text(
+                      "Signup",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("Already have an account?"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: Text(
-                      'Login',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                    ),
-                  )
-                ],
               )
-            ],
-          ),
+              // Flexible(
+              //   child: Container(
+              //       width: 420,
+              //       height: 300,
+              //       decoration: BoxDecoration(
+              //         image: DecorationImage(
+              //             image: AssetImage("assets/login_image.png"),
+              //             fit: BoxFit.fitHeight),
+              //       )),
+              // )
+            ]))
+          ],
         ),
       ),
     );
   }
-}
-
-// we will be creating a widget for text field
-Widget inputFile({label, obscureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      TextField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      SizedBox(
-        height: 10,
-      )
-    ],
-  );
 }

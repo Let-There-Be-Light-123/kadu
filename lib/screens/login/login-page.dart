@@ -1,153 +1,212 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:kadu_ngo/screens/welcome/welcome.dart';
+import 'package:kadu_ngo/theme/color.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kadu_ngo/widgets/input_text/input_text.dart';
 
 class LoginPage extends StatelessWidget {
+  bool rememberPassword = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColorDefault,
       appBar: AppBar(
         elevation: 0,
-        // brightness: Brightness.light,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Welcome()),
-            );
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: Colors.black,
-          ),
-        ),
+        backgroundColor: AppColors.backgroundColorDefault,
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Expanded(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Login",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Login to your account",
-                      style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      inputFile(label: "Email"),
-                      inputFile(label: "Password", obscureText: true)
+                  Column(
+                    children: <Widget>[
+                      Text(
+                        "Login",
+                        style: GoogleFonts.poppins(
+                          fontSize: 40,
+                          color: AppColors.textColorPrimary,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        "By Signing in you are agreeing to our",
+                        style: GoogleFonts.poppins(
+                            fontSize: 15, color: Colors.grey),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // redirect to terms and Conditions
+                        },
+                        child: Text(
+                          'Terms and Privacy Policay',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              color: AppColors.textColorPrimary),
+                        ),
+                      ),
+                      Container(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          TextButton(
+                              onPressed: () {
+                                // Select Default for the login page
+                                //underline the button when clicked
+                              },
+                              child: Text(
+                                'Login',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 15,
+                                    height: 2,
+                                    color: AppColors.primaryColorOrange),
+                              )),
+                          TextButton(
+                              onPressed: () {
+                                // Select Default for the login page
+                              },
+                              child: Text(
+                                'Register',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 15,
+                                    color: AppColors.textColorPrimary),
+                              ))
+                        ],
+                      ))
                     ],
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Container(
-                    padding: EdgeInsets.only(top: 3, left: 3),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                          top: BorderSide(color: Colors.black),
-                          left: BorderSide(color: Colors.black),
-                          right: BorderSide(color: Colors.black),
-                        )),
-                    child: MaterialButton(
-                      minWidth: double.infinity,
-                      height: 60,
-                      onPressed: () {},
-                      color: Color(0xff0095FF),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: Colors.white,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
+                      children: <Widget>[
+                        textFieldInput(label: "Email"),
+                        textFieldInput(label: "Password", obscureText: true),
+                      ],
+                    ),
+                  ),
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // CheckboxListTile(
+                          //     title: Text('Remember Password',
+                          //         style: GoogleFonts.poppins(
+                          //             fontSize: 15, color: Colors.grey)),
+                          //     value: rememberPassword,
+                          //     onChanged: (bool? value) {
+                          //       //update when checkbox is toggled
+                          //       // setState(() {
+                          //       rememberPassword = value ?? false;
+                          //       // });
+                          //     }),
+                          TextButton(
+                              onPressed: () {},
+                              child: Text('Remember Password',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 15, color: Colors.grey))),
+                          TextButton(
+                              onPressed: () {},
+                              child: Text('Remember Password',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 15, color: Colors.grey)))
+                        ],
+                      )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Container(
+                      width: 320,
+                      child: MaterialButton(
+                        minWidth: double.infinity,
+                        height: 45,
+                        onPressed: () {},
+                        color: AppColors.primaryColorOrange,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          "Login",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Don't have an account?"),
-                    Text(
-                      " Sign up",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Text("Or sign in with:"),
+                      SizedBox(height: 15),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Container(
+                          width: 150,
+                          child: MaterialButton(
+                              minWidth: double.infinity,
+                              height: 45,
+                              onPressed: () {},
+                              color: AppColors.googleButtonColor,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: RichText(
+                                text: TextSpan(children: [
+                                  WidgetSpan(
+                                      child: Image(
+                                    image: AssetImage('assets/google_logo.png'),
+                                    height: 20,
+                                    width: 20,
+                                  )),
+                                  TextSpan(
+                                      text: 'Google',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                        color: AppColors.textColorPrimary,
+                                      ))
+                                ]),
+                              )),
+                        ),
                       ),
-                    )
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 100),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/background.png"),
-                        fit: BoxFit.fitHeight),
-                  ),
-                )
-              ],
-            ))
+                      Flexible(
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 300,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("assets/login_image.png"),
+                                  fit: BoxFit.fitHeight),
+                            )),
+                      )
+                    ],
+                  )
+                ]))
           ],
         ),
       ),
     );
   }
-}
 
-// we will be creating a widget for text field
-Widget inputFile({label, obscureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      TextField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      SizedBox(
-        height: 10,
-      )
-    ],
-  );
+  // void setState(Null Function() param0) {}
 }
