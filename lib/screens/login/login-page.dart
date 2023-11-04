@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadu_ngo/business_logic/login/login_bloc.dart';
+import 'package:kadu_ngo/business_logic/login/login_event.dart';
 import 'package:kadu_ngo/business_logic/login/login_state.dart';
 import 'package:kadu_ngo/screens/welcome/welcome.dart';
 import 'package:kadu_ngo/theme/color.dart';
@@ -11,6 +12,9 @@ import 'package:kadu_ngo/widgets/input_text/input_text.dart';
 
 class LoginPage extends StatelessWidget {
   bool rememberPassword = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passWordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,8 +101,77 @@ class LoginPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
-                        textFieldInput(label: "Email"),
-                        textFieldInput(label: "Password", obscureText: true),
+                        // textFieldInput(label: "Email"),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              height: 60,
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: TextField(
+                                controller: emailController,
+                                onChanged: (val) {
+                                  BlocProvider.of<SignInBloc>(context).add(
+                                      SigninEmailChangedEvent(
+                                          emailController.text));
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  hintText: 'Email',
+                                  hintStyle: GoogleFonts.poppins(
+                                      fontSize: 15, color: Colors.grey),
+                                  suffixIcon: Icon(Icons.mail),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            BlocBuilder<SignInBloc, SignInState>(
+                              builder: (context, state) {
+                                if (state is SigninErrorState) {
+                                  return Text("Enter Valid Email");
+                                } else
+                                  return Container();
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              height: 60,
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: TextField(
+                                controller: emailController,
+                                onChanged: (val) {
+                                  BlocProvider.of<SignInBloc>(context).add(
+                                      SigninEmailChangedEvent(
+                                          passWordController.text));
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  hintText: 'Password',
+                                  hintStyle: GoogleFonts.poppins(
+                                      fontSize: 15, color: Colors.grey),
+                                  suffixIcon: Icon(Icons.lock_outline),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            BlocBuilder<SignInBloc, SignInState>(
+                              builder: (context, state) {
+                                if (state is SigninErrorState) {
+                                  return Text("Enter Valid Password");
+                                } else
+                                  return Container();
+                              },
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
