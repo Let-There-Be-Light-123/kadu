@@ -1,6 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kadu_ngo/business_logic/login/login_bloc.dart';
+import 'package:kadu_ngo/business_logic/login/login_state.dart';
 import 'package:kadu_ngo/screens/welcome/welcome.dart';
 import 'package:kadu_ngo/theme/color.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -129,27 +132,32 @@ class LoginPage extends StatelessWidget {
                       )),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: Container(
-                      width: 320,
-                      child: MaterialButton(
-                        minWidth: double.infinity,
-                        height: 45,
-                        onPressed: () {},
-                        color: AppColors.primaryColorOrange,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.white,
+                    child: BlocBuilder<SignInBloc, SignInState>(
+                        builder: (context, state) {
+                      return Container(
+                        width: 320,
+                        child: MaterialButton(
+                          minWidth: double.infinity,
+                          height: 45,
+                          onPressed: () {},
+                          color: (state is SigninValidState)
+                              ? AppColors.primaryColorOrange
+                              : Colors.grey,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Text(
+                            "Login",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
